@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# store the current dir
+CUR_DIR=$(pwd)
+
+# Let the person running the script know what's going on.
+echo "Pushing in latest changes for all repositories...\n"
+
+# Find all git repositories and update it to the master latest revision
+for i in $(find . -name ".git" | cut -c 3-); do
+    echo "";
+    echo "--------------------------------------------------"
+    echo $i;
+
+    # We have to go to the .git parent directory to call the pull command
+    cd "$i";
+    cd ..;
+
+    # finally push
+    echo "----------updating index----------"
+    jupyter nbconvert --to markdown index.ipynb && mv index.md README.md
+    echo "-------finished index update------"
+    echo "--------------------------------------------------"
+    echo "--------------------------------------------------"
+    git add .
+    git commit -m "$1" 
+    git push
+    echo "--------------------------------------------------"
+    echo "--------------------------------------------------"
+
+
+    # lets get back to the CUR_DIR
+    cd $CUR_DIR
+done
+
+echo "Complete!"
