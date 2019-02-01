@@ -1,0 +1,15 @@
+# type: gitpush "commit message here"
+function gitpush(){
+	git add .
+	git commit -m "$1"
+	git push
+}
+
+# to use the .update_git_repos you should put it in
+# your home directory
+# the alias below will be used to trigger it
+# you would type: updaterepos 'pushing changes'
+alias updaterepos='source ~/.update_git_repos' 
+alias lsa='ls -a'
+alias jn='jupyter notebook'
+alias clone='git clone'
